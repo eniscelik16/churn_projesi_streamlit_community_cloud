@@ -12,7 +12,7 @@ Bu proje, banka müşterilerinin bankayı terk etme (churn) riskini makine öğr
 
 Uygulamayı bilgisayarınıza kurmadan, doğrudan tarayıcınız üzerinden test edebilirsiniz:
 
-🔗 \*\*\[Uygulamaya Gitmek İçin Tıklayın](Link-Buraya-Gelecek)\*\*
+🔗 \*\*\[Uygulamaya Gitmek İçin Tıklayın](https://eniscelikchurnprojesi.streamlit.app/)\*\*
 
 
 
