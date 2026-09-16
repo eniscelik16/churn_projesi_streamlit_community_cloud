@@ -1,4 +1,4 @@
-# 🏦 Bank Customer Churn Prediction Dashboard
+# 🏦 Bank Churn Risk Dashboard
 
 Bu proje, banka müşterilerinin bankayı terk etme (churn) riskini makine öğrenmesi algoritmaları kullanarak tahmin eden ve yöneticilere stratejik kararlar almaları için etkileşimli bir arayüz sunan profesyonel bir makine öğrenmesi web uygulamasıdır.
 
