@@ -6,6 +6,24 @@ Bu proje, banka müşterilerinin bankayı terk etme (churn) riskini makine öğr
 
 
 
+\## 🌐 Canlı Demo
+
+
+
+Uygulamayı bilgisayarınıza kurmadan, doğrudan tarayıcınız üzerinden test edebilirsiniz:
+
+🔗 \*\*\[Uygulamaya Gitmek İçin Tıklayın](Link-Buraya-Gelecek)\*\*
+
+
+
+\*\*Demo Giriş Bilgileri:\*\*
+
+\* \*\*Kullanıcı Adı:\*\* admin
+
+\* \*\*Şifre:\*\* 123
+
+
+
 \## 🚀 Öne Çıkan Özellikler
 
 
@@ -36,17 +54,43 @@ Bu proje, banka müşterilerinin bankayı terk etme (churn) riskini makine öğr
 
 
 
-\## 💻 Kurulum ve Çalıştırma (Lokal)
+\## 💻 Kendi Bilgisayarınızda Çalıştırma Adımları
 
 
 
-Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin:
+Bu projeyi GitHub'dan indirip kendi bilgisayarınızda (lokalinizde) test etmek isterseniz sırasıyla şu adımları izlemelisiniz:
 
 
 
-1\. \*\*Gerekli kütüphaneleri yükleyin:\*\*
+\*\*Adım 1: Gerekli Kütüphaneleri Yükleyin\*\*
 
-&#x20;  ```bash
+Projenin ihtiyaç duyduğu eklentileri (XGBoost, Streamlit vb.) bilgisayarınıza kurmak için terminalinize şu komutu yazın:
 
-&#x20;  pip install -r requirements.txt
+```bash
+
+pip install -r requirements.txt
+
+
+
+\*\*Adım 2: Yönetici Şifrelerini Ayarlayın\*\*
+
+Güvenlik standartları gereği şifre dosyası GitHub'a yüklenmemiştir. Uygulamanın giriş (Login) ekranını geçebilmek için proje ana klasörünüzün içine .streamlit adında yeni bir klasör açın. İçine secrets.toml adında bir dosya oluşturup şu kodları yapıştırın:
+
+
+
+\[auth]
+
+username = "admin"
+
+password = "123"
+
+
+
+\*\*Adım 3: Uygulamayı Başlatın\*\*
+
+Tüm kurulumlar tamamlandı. Terminalinize aşağıdaki komutu yazarak uygulamayı tarayıcınızda açabilirsiniz:
+
+
+
+streamlit run app.py
 
