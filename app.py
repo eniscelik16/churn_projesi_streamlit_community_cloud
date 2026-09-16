@@ -123,39 +123,39 @@ def main_dashboard():
 
     # === TAB: OVERVIEW ===
     with tab_overview:
-        if df_filtered.empty:
+        if df_global.empty: 
             st.warning("Please upload 'Churn_Modelling.csv' to the project root directory to see the overview.")
         else:
             title_col, obj_col = st.columns([1, 1])
             with title_col:
-                st.markdown("<h2 style='margin-bottom:0; font-family:Georgia,serif; color:#333;'>Bank Customer Churn Analysis</h2>", unsafe_allow_html=True)
+                st.markdown("<h2 style='margin-bottom:0; font-family:Georgia,serif; color:var(--text-color);'>Bank Customer Churn Analysis</h2>", unsafe_allow_html=True)
             with obj_col:
-                st.markdown("<div style='background:#fff8f0; border-left:4px solid #bb3f3f; padding:12px 16px; border-radius:4px; font-size:13px; line-height:1.6;'><b style='color:#bb3f3f;'>Objective :</b> To identify the customer segments currently experiencing churn and formulate actionable recommendations tailored for these groups, with the goal of enhancing retention efforts.</div>", unsafe_allow_html=True)
+                st.markdown("<div style='background-color: rgba(187, 63, 63, 0.08); border-left: 4px solid #bb3f3f; padding: 12px 16px; border-radius: 4px; font-size: 13px; line-height: 1.6; color: var(--text-color);'><b style='color: #bb3f3f;'>Objective :</b> To identify the customer segments currently experiencing churn and formulate actionable recommendations tailored for these groups, with the goal of enhancing retention efforts.</div>", unsafe_allow_html=True)
 
             st.markdown("")
 
             total_cust = len(df_filtered)
-            active_cust = df_filtered[df_filtered['IsActiveMember'] == 1].shape[0]
-            exited_cust = df_filtered[df_filtered['Exited'] == 1].shape[0]
+            active_cust = df_filtered[df_filtered['IsActiveMember'] == 1].shape[0] if total_cust > 0 else 0
+            exited_cust = df_filtered[df_filtered['Exited'] == 1].shape[0] if total_cust > 0 else 0
             churn_rate = (exited_cust / total_cust) * 100 if total_cust > 0 else 0
 
             st.markdown(f"""
             <div style='display:flex; gap:15px; margin-bottom:15px;'>
-                <div style='flex:1; background:white; border:1px solid #eee; border-top:3px solid #bb3f3f; padding:18px 12px; text-align:center; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.08);'>
-                    <div style='color:#888; font-size:11px; text-transform:uppercase; letter-spacing:1px; font-weight:600;'>Total Customers</div>
-                    <div style='color:#333; font-size:30px; font-weight:bold; margin-top:5px;'>{total_cust:,}</div>
+                <div style='flex:1; background-color: rgba(130, 130, 130, 0.1); border: 1px solid rgba(130, 130, 130, 0.2); border-top: 3px solid #bb3f3f; padding: 18px 12px; text-align: center; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>
+                    <div style='color: var(--text-color); opacity: 0.8; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;'>Total Customers</div>
+                    <div style='color: var(--text-color); font-size: 30px; font-weight: bold; margin-top: 5px;'>{total_cust:,}</div>
                 </div>
-                <div style='flex:1; background:white; border:1px solid #eee; border-top:3px solid #bb3f3f; padding:18px 12px; text-align:center; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.08);'>
-                    <div style='color:#888; font-size:11px; text-transform:uppercase; letter-spacing:1px; font-weight:600;'>Active Customers</div>
-                    <div style='color:#333; font-size:30px; font-weight:bold; margin-top:5px;'>{active_cust:,}</div>
+                <div style='flex:1; background-color: rgba(130, 130, 130, 0.1); border: 1px solid rgba(130, 130, 130, 0.2); border-top: 3px solid #bb3f3f; padding: 18px 12px; text-align: center; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>
+                    <div style='color: var(--text-color); opacity: 0.8; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;'>Active Customers</div>
+                    <div style='color: var(--text-color); font-size: 30px; font-weight: bold; margin-top: 5px;'>{active_cust:,}</div>
                 </div>
-                <div style='flex:1; background:white; border:1px solid #eee; border-top:3px solid #bb3f3f; padding:18px 12px; text-align:center; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.08);'>
-                    <div style='color:#888; font-size:11px; text-transform:uppercase; letter-spacing:1px; font-weight:600;'>Exited Customers</div>
-                    <div style='color:#333; font-size:30px; font-weight:bold; margin-top:5px;'>{exited_cust:,}</div>
+                <div style='flex:1; background-color: rgba(130, 130, 130, 0.1); border: 1px solid rgba(130, 130, 130, 0.2); border-top: 3px solid #bb3f3f; padding: 18px 12px; text-align: center; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>
+                    <div style='color: var(--text-color); opacity: 0.8; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;'>Exited Customers</div>
+                    <div style='color: var(--text-color); font-size: 30px; font-weight: bold; margin-top: 5px;'>{exited_cust:,}</div>
                 </div>
-                <div style='flex:1; background:white; border:1px solid #eee; border-top:3px solid #bb3f3f; padding:18px 12px; text-align:center; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.08);'>
-                    <div style='color:#888; font-size:11px; text-transform:uppercase; letter-spacing:1px; font-weight:600;'>Churn Rate</div>
-                    <div style='color:#bb3f3f; font-size:30px; font-weight:bold; margin-top:5px;'>{churn_rate:.1f}%</div>
+                <div style='flex:1; background-color: rgba(130, 130, 130, 0.1); border: 1px solid rgba(130, 130, 130, 0.2); border-top: 3px solid #bb3f3f; padding: 18px 12px; text-align: center; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>
+                    <div style='color: var(--text-color); opacity: 0.8; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;'>Churn Rate</div>
+                    <div style='color: #bb3f3f; font-size: 30px; font-weight: bold; margin-top: 5px;'>{churn_rate:.1f}%</div>
                 </div>
             </div>""", unsafe_allow_html=True)
             
@@ -163,27 +163,31 @@ def main_dashboard():
             c1, c2, c3 = st.columns(3)
 
             with c1:
-                st.markdown("<h4 style='color:#333;'><span style='color:#bb3f3f;'>CHURN</span> BY GENDER</h4>", unsafe_allow_html=True)
-                gender_churn = df_filtered.groupby('Gender')['Exited'].mean() * 100
-                female_churn = gender_churn.get('Female', 0)
-                male_churn = gender_churn.get('Male', 0)
-                diff = female_churn - male_churn
-                if diff > 0:
-                    st.markdown(f"<p style='font-size:13px; color:#555;'>Females show {diff:.0f}% higher churn</p>", unsafe_allow_html=True)
-                elif diff < 0:
-                    st.markdown(f"<p style='font-size:13px; color:#555;'>Males show {abs(diff):.0f}% higher churn</p>", unsafe_allow_html=True)
+                st.markdown("<h4 style='color:var(--text-color);'><span style='color:#bb3f3f;'>CHURN</span> BY GENDER</h4>", unsafe_allow_html=True)
+                if total_cust == 0:
+                    female_churn, male_churn = 0, 0
+                    st.markdown("<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>No data to display</p>", unsafe_allow_html=True)
                 else:
-                    st.markdown("<p style='font-size:13px; color:#555;'>Both genders show equal churn</p>", unsafe_allow_html=True)
+                    gender_churn = df_filtered.groupby('Gender')['Exited'].mean() * 100
+                    female_churn = gender_churn.get('Female', 0)
+                    male_churn = gender_churn.get('Male', 0)
+                    diff = female_churn - male_churn
+                    if diff > 0:
+                        st.markdown(f"<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>Females show {diff:.0f}% higher churn</p>", unsafe_allow_html=True)
+                    elif diff < 0:
+                        st.markdown(f"<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>Males show {abs(diff):.0f}% higher churn</p>", unsafe_allow_html=True)
+                    else:
+                        st.markdown("<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>Both genders show equal churn</p>", unsafe_allow_html=True)
 
                 fig_gen = make_subplots(rows=2, cols=1, specs=[[{'type': 'domain'}], [{'type': 'domain'}]], vertical_spacing=0.1)
                 fig_gen.add_trace(go.Pie(
-                    values=[female_churn, 100 - female_churn], labels=['Churned', 'Retained'],
+                    values=[female_churn, 100 - female_churn] if total_cust > 0 else [0, 100], labels=['Churned', 'Retained'],
                     hole=0.75, marker_colors=['#bb3f3f', '#e0e0e0'],
                     textinfo='percent', textposition='outside',
                     sort=False, direction='clockwise', rotation=90
                 ), row=1, col=1)
                 fig_gen.add_trace(go.Pie(
-                    values=[male_churn, 100 - male_churn], labels=['Churned', 'Retained'],
+                    values=[male_churn, 100 - male_churn] if total_cust > 0 else [0, 100], labels=['Churned', 'Retained'],
                     hole=0.75, marker_colors=['#bb3f3f', '#e0e0e0'],
                     textinfo='percent', textposition='outside',
                     sort=False, direction='clockwise', rotation=90
@@ -205,18 +209,22 @@ def main_dashboard():
                 if male_b64:
                     fig_gen.add_layout_image(dict(source=male_b64, xref="paper", yref="paper",
                         x=0.5, y=0.225, sizex=0.35, sizey=0.35, xanchor="center", yanchor="middle", sizing="contain"))
-                st.plotly_chart(fig_gen, width="stretch")
+                st.plotly_chart(fig_gen, width="stretch", theme="streamlit")
 
             with c2:
-                st.markdown("<h4 style='color:#333;'><span style='color:#bb3f3f;'>CHURN</span> BY ACTIVE Vs INACTIVE MEMBER</h4>", unsafe_allow_html=True)
-                active_churn_rate = df_filtered.groupby('IsActiveMember')['Exited'].mean() * 100
-                inactive_rate = active_churn_rate.get(0, 0)
-                active_rate_val = active_churn_rate.get(1, 0)
-                st.markdown("<p style='font-size:13px; color:#555;'>Inactive members show higher churn rate</p>", unsafe_allow_html=True)
+                st.markdown("<h4 style='color:var(--text-color);'><span style='color:#bb3f3f;'>CHURN</span> BY ACTIVE Vs INACTIVE MEMBER</h4>", unsafe_allow_html=True)
+                if total_cust == 0:
+                    inactive_rate, active_rate_val = 0, 0
+                else:
+                    active_churn_rate = df_filtered.groupby('IsActiveMember')['Exited'].mean() * 100
+                    inactive_rate = active_churn_rate.get(0, 0)
+                    active_rate_val = active_churn_rate.get(1, 0)
+                
+                st.markdown("<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>Inactive members show higher churn rate</p>", unsafe_allow_html=True)
 
                 categories = ['Active Member', 'Inactive Member']
-                retained_vals = [100 - active_rate_val, 100 - inactive_rate]
-                churned_vals = [active_rate_val, inactive_rate]
+                retained_vals = [100 - active_rate_val, 100 - inactive_rate] if total_cust > 0 else [0, 0]
+                churned_vals = [active_rate_val, inactive_rate] if total_cust > 0 else [0, 0]
 
                 fig_active = go.Figure()
                 fig_active.add_trace(go.Bar(y=categories, x=retained_vals, name='Retained', orientation='h',
@@ -230,43 +238,46 @@ def main_dashboard():
                     margin=dict(t=30, b=10, l=10, r=10), height=400,
                     xaxis=dict(showticklabels=False, showgrid=False, zeroline=False), yaxis=dict(showgrid=False),
                     paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-                st.plotly_chart(fig_active, width="stretch")
+                st.plotly_chart(fig_active, width="stretch", theme="streamlit")
 
             with c3:
-                st.markdown("<h4 style='color:#333;'><span style='color:#bb3f3f;'>CHURN</span> BY GEOGRAPHY</h4>", unsafe_allow_html=True)
-                geo_churn = df_filtered.groupby('Geography')['Exited'].mean().reset_index()
-                geo_churn['Churn Rate (%)'] = geo_churn['Exited'] * 100
-                if not geo_churn.empty:
-                    max_c = geo_churn.loc[geo_churn['Churn Rate (%)'].idxmax()]
-                    st.markdown(f"<p style='font-size:13px; color:#555;'><b>{max_c['Geography']}</b> has the highest churn rate at <b>{max_c['Churn Rate (%)']:.0f}%</b></p>", unsafe_allow_html=True)
+                st.markdown("<h4 style='color:var(--text-color);'><span style='color:#bb3f3f;'>CHURN</span> BY GEOGRAPHY</h4>", unsafe_allow_html=True)
+                if total_cust == 0:
+                    st.markdown("<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>No data to display</p>", unsafe_allow_html=True)
+                    fig_geo = go.Figure()
+                else:
+                    geo_churn = df_filtered.groupby('Geography')['Exited'].mean().reset_index()
+                    geo_churn['Churn Rate (%)'] = geo_churn['Exited'] * 100
+                    if not geo_churn.empty:
+                        max_c = geo_churn.loc[geo_churn['Churn Rate (%)'].idxmax()]
+                        st.markdown(f"<p style='font-size:13px; color:var(--text-color); opacity:0.8;'><b>{max_c['Geography']}</b> has the highest churn rate at <b>{max_c['Churn Rate (%)']:.0f}%</b></p>", unsafe_allow_html=True)
 
-                # Eski harita tarzı (Koordinatlı metinler ve orjinal isimler)
-                fig_geo = px.choropleth(geo_churn, locations="Geography", locationmode="country names",
-                    color="Churn Rate (%)", scope="europe", color_continuous_scale=["#fce8cc", "#bb3f3f"],
-                    hover_name="Geography", hover_data={"Geography": False, "Churn Rate (%)": ':.2f'})
-                
-                country_coords = {'France': {'lat': 46.2276, 'lon': 2.2137},
-                    'Germany': {'lat': 51.1657, 'lon': 10.4515}, 'Spain': {'lat': 40.4637, 'lon': -3.7492}}
-                
-                for idx, row in geo_churn.iterrows():
-                    country = row['Geography']
-                    rate = row['Churn Rate (%)']
-                    if country in country_coords:
-                        fig_geo.add_scattergeo(lat=[country_coords[country]['lat']], lon=[country_coords[country]['lon']],
-                            text=[f"<b>{country}</b><br>{rate:.2f}%"], mode="text",
-                            textfont=dict(color="#333333", size=14), showlegend=False, hoverinfo="skip")
-                
+                    fig_geo = px.choropleth(geo_churn, locations="Geography", locationmode="country names",
+                        color="Churn Rate (%)", scope="europe", color_continuous_scale=["#fce8cc", "#bb3f3f"],
+                        hover_name="Geography", hover_data={"Geography": False, "Churn Rate (%)": ':.2f'})
+                    
+                    country_coords = {'France': {'lat': 46.2276, 'lon': 2.2137},
+                        'Germany': {'lat': 51.1657, 'lon': 10.4515}, 'Spain': {'lat': 40.4637, 'lon': -3.7492}}
+                    
+                    for idx, row in geo_churn.iterrows():
+                        country = row['Geography']
+                        rate = row['Churn Rate (%)']
+                        if country in country_coords:
+                            fig_geo.add_scattergeo(lat=[country_coords[country]['lat']], lon=[country_coords[country]['lon']],
+                                text=[f"<b>{country}</b><br>{rate:.2f}%"], mode="text",
+                                textfont=dict(color="#333333", size=14), showlegend=False, hoverinfo="skip")
+                    
                 fig_geo.update_geos(fitbounds="locations", visible=False, showcountries=True, countrycolor="#d9d9d9", showland=True, landcolor="#ececec")
                 fig_geo.update_layout(margin={"r": 0, "t": 10, "l": 0, "b": 0}, coloraxis_showscale=False, geo=dict(bgcolor='rgba(0,0,0,0)'))
-                st.plotly_chart(fig_geo, width="stretch")
+                st.plotly_chart(fig_geo, width="stretch", theme="streamlit")
 
             st.markdown("---")
 
             c4, c5, c6 = st.columns(3)
 
             with c4:
-                st.markdown("<h4 style='color:#333;'><span style='color:#bb3f3f;'>CHURN</span> BY CREDIT SCORE</h4>", unsafe_allow_html=True)
-                st.markdown("<p style='font-size:13px; color:#555;'>Churn risk higher for customers with poor credit scores</p>", unsafe_allow_html=True)
+                st.markdown("<h4 style='color:var(--text-color);'><span style='color:#bb3f3f;'>CHURN</span> BY CREDIT SCORE</h4>", unsafe_allow_html=True)
+                st.markdown("<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>Churn risk higher for customers with poor credit scores</p>", unsafe_allow_html=True)
                 bins_cs = [300, 500, 600, 700, 800, 850]
                 labels_cs = ['Poor', 'Fair', 'Good', 'Very Good', 'Excellent']
                 df_cs = df_filtered.copy()
@@ -278,28 +289,26 @@ def main_dashboard():
                 fig_score.add_trace(go.Bar(y=score_data['ScoreGroup'], x=score_data['Retained'], name='Customer', orientation='h', marker_color='#cccccc'))
                 fig_score.add_trace(go.Bar(y=score_data['ScoreGroup'], x=score_data['Exited'], name='Exited', orientation='h', marker_color='#bb3f3f'))
                 fig_score.update_layout(barmode='group', showlegend=True, legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5), margin=dict(t=30, b=30, l=10, r=10), height=300, xaxis_title="Customer vs Exited", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", yaxis=dict(categoryorder='array', categoryarray=['Excellent', 'Very Good', 'Good', 'Fair', 'Poor']))
-                st.plotly_chart(fig_score, width="stretch")
+                st.plotly_chart(fig_score, width="stretch", theme="streamlit")
 
             with c5:
-                st.markdown("<h4 style='color:#333;'><span style='color:#bb3f3f;'>CHURN</span> BY NUMBER OF PRODUCTS</h4>", unsafe_allow_html=True)
-                st.markdown("<p style='font-size:13px; color:#555;'>High churn among those buying 3+ products</p>", unsafe_allow_html=True)
+                st.markdown("<h4 style='color:var(--text-color);'><span style='color:#bb3f3f;'>CHURN</span> BY NUMBER OF PRODUCTS</h4>", unsafe_allow_html=True)
+                st.markdown("<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>High churn among those buying 3+ products</p>", unsafe_allow_html=True)
                 prod_data = df_filtered.groupby('NumOfProducts').agg(Total=('Exited', 'count'), Exited=('Exited', 'sum')).reset_index()
                 prod_data['Retained'] = prod_data['Total'] - prod_data['Exited']
-                prod_data['Churn_Pct'] = (prod_data['Exited'] / prod_data['Total'] * 100).round(0)
-                prod_data['Retain_Pct'] = (100 - prod_data['Churn_Pct']).round(0)
+                prod_data['Churn_Pct'] = (prod_data['Exited'] / prod_data['Total'] * 100).fillna(0).round(0)
+                prod_data['Retain_Pct'] = (100 - prod_data['Churn_Pct']).fillna(0).round(0)
 
                 fig_prod = go.Figure()
                 fig_prod.add_trace(go.Bar(x=prod_data['NumOfProducts'], y=prod_data['Retain_Pct'], name='Retained', marker_color='#cccccc', text=[f"{v:.0f}%" for v in prod_data['Retain_Pct']], textposition='inside', textfont=dict(color='#333', size=11)))
                 fig_prod.add_trace(go.Bar(x=prod_data['NumOfProducts'], y=prod_data['Churn_Pct'], name='Churned', marker_color='#bb3f3f', text=[f"{v:.0f}%" for v in prod_data['Churn_Pct']], textposition='inside', textfont=dict(color='white', size=11)))
                 fig_prod.update_layout(barmode='stack', showlegend=True, legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5), margin=dict(t=30, b=30, l=10, r=10), height=300, xaxis_title="NumOfProducts", yaxis_title="Customer %", yaxis=dict(range=[0, 100], ticksuffix='%'), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-                st.plotly_chart(fig_prod, width="stretch")
+                st.plotly_chart(fig_prod, width="stretch", theme="streamlit")
 
             with c6:
-                st.markdown("<h4 style='color:#333;'><span style='color:#bb3f3f;'>Driver Analysis</span></h4>", unsafe_allow_html=True)
-                st.markdown("""<div style='font-size:12px; color:#555; line-height:1.6; margin-bottom:10px;'>
-                Age is the most dominant demographic factor influencing churn. As age increases, churn likelihood rises.
-                Inactive members are more likely to churn. Germany has a higher churn rate.
-                Higher credit score correlates with lower churn. More product purchases increase churn likelihood.
+                st.markdown("<h4 style='color:var(--text-color);'><span style='color:#bb3f3f;'>Driver Analysis</span></h4>", unsafe_allow_html=True)
+                st.markdown("""<div style='font-size:12px; color:var(--text-color); opacity:0.8; line-height:1.6; margin-bottom:10px;'>
+                Age is a critical demographic factor. Churn risk peaks during middle age (around 46-55) where customers are highly financially active, but significantly decreases for senior customers (65+) due to banking inertia. Inactive members are more likely to churn. Germany has a higher churn rate. Higher credit score correlates with lower churn. More product purchases increase churn likelihood.
                 </div>""", unsafe_allow_html=True)
                 st.markdown("<p style='font-size:13px; color:#bb3f3f; font-weight:bold;'>Coefficient by Driver Name</p>", unsafe_allow_html=True)
 
@@ -310,15 +319,15 @@ def main_dashboard():
                     colors_imp = ['#bb3f3f' if v > feat_imp['Importance'].median() else '#cccccc' for v in feat_imp['Importance']]
                     fig_driver = go.Figure(go.Bar(x=feat_imp['Importance'], y=feat_imp['Feature'], orientation='h', marker_color=colors_imp))
                     fig_driver.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=250, xaxis=dict(showgrid=True, gridcolor='#eee'), yaxis=dict(tickfont=dict(size=9)), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-                    st.plotly_chart(fig_driver, width="stretch")
+                    st.plotly_chart(fig_driver, width="stretch", theme="streamlit")
 
             st.markdown("---")
 
             c7, c8 = st.columns(2)
 
             with c7:
-                st.markdown("<h4 style='color:#333;'><span style='color:#bb3f3f;'>CHURN</span> BY BALANCE IN ACCOUNT</h4>", unsafe_allow_html=True)
-                st.markdown("<p style='font-size:13px; color:#555;'>High-churn risk observed among customers with larger balances</p>", unsafe_allow_html=True)
+                st.markdown("<h4 style='color:var(--text-color);'><span style='color:#bb3f3f;'>CHURN</span> BY BALANCE IN ACCOUNT</h4>", unsafe_allow_html=True)
+                st.markdown("<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>High-churn risk observed among customers with larger balances</p>", unsafe_allow_html=True)
                 bal_bins = [0, 30000, 60000, 90000, 120000, 150000, float('inf')]
                 bal_labels = ['0-30K', '30K-60K', '60K-90K', '90K-120K', '120K-150K', '150K+']
                 df_bal = df_filtered.copy()
@@ -330,29 +339,39 @@ def main_dashboard():
                 fig_bal.add_trace(go.Bar(x=bal_data['BalanceBin'], y=bal_data['Retained'], name='Customer', marker_color='#cccccc'))
                 fig_bal.add_trace(go.Bar(x=bal_data['BalanceBin'], y=bal_data['Exited'], name='Exited', marker_color='#bb3f3f'))
                 fig_bal.update_layout(barmode='group', showlegend=True, legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5), margin=dict(t=30, b=30, l=10, r=10), height=350, xaxis_title="Balance (Binned)", yaxis_title="Customer", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-                st.plotly_chart(fig_bal, width="stretch")
+                st.plotly_chart(fig_bal, width="stretch", theme="streamlit")
 
             with c8:
-                st.markdown("<h4 style='color:#333;'><span style='color:#bb3f3f;'>CHURN</span> BY AGE</h4>", unsafe_allow_html=True)
-                age_bins = [0, 35, 45, 55, 100]
-                age_labels = ['<35 yrs', '36-45 yrs', '46-55 yrs', '55+']
-                df_age = df_filtered.copy()
-                df_age['AgeGroup'] = pd.cut(df_age['Age'], bins=age_bins, labels=age_labels, include_lowest=True)
-                age_data = df_age.groupby('AgeGroup', observed=False).agg(Total=('Exited', 'count'), Exited=('Exited', 'sum')).reset_index()
-                age_data['Retained'] = age_data['Total'] - age_data['Exited']
-                age_data['Churn_Pct'] = (age_data['Exited'] / age_data['Total'] * 100).round(0)
-                age_data['Retain_Pct'] = (100 - age_data['Churn_Pct']).round(0)
+                st.markdown("<h4 style='color:var(--text-color);'><span style='color:#bb3f3f;'>CHURN</span> BY AGE</h4>", unsafe_allow_html=True)
+                
+                if total_cust == 0:
+                    st.markdown("<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>No data to display</p>", unsafe_allow_html=True)
+                    fig_age = go.Figure()
+                    fig_age.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=350)
+                    st.plotly_chart(fig_age, width="stretch", theme="streamlit")
+                else:
+                    age_bins = [0, 35, 45, 55, 100]
+                    age_labels = ['<35 yrs', '36-45 yrs', '46-55 yrs', '55+']
+                    df_age = df_filtered.copy()
+                    df_age['AgeGroup'] = pd.cut(df_age['Age'], bins=age_bins, labels=age_labels, include_lowest=True)
+                    age_data = df_age.groupby('AgeGroup', observed=False).agg(Total=('Exited', 'count'), Exited=('Exited', 'sum')).reset_index()
+                    age_data['Retained'] = age_data['Total'] - age_data['Exited']
+                    age_data['Churn_Pct'] = (age_data['Exited'] / age_data['Total'] * 100).fillna(0).round(0)
+                    age_data['Retain_Pct'] = (100 - age_data['Churn_Pct']).fillna(0).round(0)
 
-                max_age_grp = age_data.loc[age_data['Churn_Pct'].idxmax()]
-                st.markdown(f"<p style='font-size:13px; color:#555;'>Churn rate is <b>{max_age_grp['Churn_Pct']:.0f}%</b> in the age group of <b>{max_age_grp['AgeGroup']}</b></p>", unsafe_allow_html=True)
+                    if age_data['Total'].sum() > 0 and not age_data['Churn_Pct'].isna().all():
+                        max_age_grp = age_data.loc[age_data['Churn_Pct'].idxmax()]
+                        st.markdown(f"<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>Churn rate is <b>{max_age_grp['Churn_Pct']:.0f}%</b> in the age group of <b>{max_age_grp['AgeGroup']}</b></p>", unsafe_allow_html=True)
+                    else:
+                        st.markdown("<p style='font-size:13px; color:var(--text-color); opacity:0.8;'>No data available for the selected filters.</p>", unsafe_allow_html=True)
 
-                age_data['Label'] = age_data.apply(lambda r: f"{r['AgeGroup']}\n{r['Total']:,.0f} ({r['Total']/total_cust*100:.0f}%)", axis=1)
+                    age_data['Label'] = age_data.apply(lambda r: f"{r['AgeGroup']}\n{r['Total']:,.0f} ({r['Total']/total_cust*100:.0f}%)", axis=1)
 
-                fig_age = go.Figure()
-                fig_age.add_trace(go.Bar(x=age_data['Label'], y=age_data['Retain_Pct'], name='Retained', marker_color='#cccccc', text=[f"{v:.0f}%" for v in age_data['Retain_Pct']], textposition='inside', textfont=dict(color='#333', size=11)))
-                fig_age.add_trace(go.Bar(x=age_data['Label'], y=age_data['Churn_Pct'], name='Churned', marker_color='#bb3f3f', text=[f"{v:.0f}%" for v in age_data['Churn_Pct']], textposition='inside', textfont=dict(color='white', size=11)))
-                fig_age.update_layout(barmode='stack', showlegend=True, legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5), margin=dict(t=30, b=30, l=10, r=10), height=350, yaxis=dict(range=[0, 100], ticksuffix='%'), yaxis_title="Customer %", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-                st.plotly_chart(fig_age, width="stretch")
+                    fig_age = go.Figure()
+                    fig_age.add_trace(go.Bar(x=age_data['Label'], y=age_data['Retain_Pct'], name='Retained', marker_color='#cccccc', text=[f"{v:.0f}%" for v in age_data['Retain_Pct']], textposition='inside', textfont=dict(color='#333', size=11)))
+                    fig_age.add_trace(go.Bar(x=age_data['Label'], y=age_data['Churn_Pct'], name='Churned', marker_color='#bb3f3f', text=[f"{v:.0f}%" for v in age_data['Churn_Pct']], textposition='inside', textfont=dict(color='white', size=11)))
+                    fig_age.update_layout(barmode='stack', showlegend=True, legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5), margin=dict(t=30, b=30, l=10, r=10), height=350, yaxis=dict(range=[0, 100], ticksuffix='%'), yaxis_title="Customer %", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+                    st.plotly_chart(fig_age, width="stretch", theme="streamlit")
 
     # --- TAB 1: SINGLE CUSTOMER ANALYSIS ---
     with tab1:
@@ -404,6 +423,7 @@ def main_dashboard():
                     res_col1, res_col2 = st.columns([1, 1])
                     with res_col1:
                         st.subheader("📊 Model Output")
+                        st.markdown("<h5 style='color:var(--text-color); opacity:0.9;'>SHAP (SHapley Additive exPlanations)</h5>", unsafe_allow_html=True)
                         if "shap_values" in result and "features" in result:
                             shap_vals = np.array(result["shap_values"])
                             expected_feats = np.array(result["features"])
@@ -415,7 +435,7 @@ def main_dashboard():
 
                             fig_shap = go.Figure(go.Bar(x=sorted_shap, y=sorted_features, orientation='h', marker_color=colors))
                             fig_shap.update_layout(xaxis_title="<- Factors that Reduce Risk | Factors that Increase Risk ->", margin=dict(l=0, r=0, t=0, b=0), height=300)
-                            st.plotly_chart(fig_shap, width="stretch")
+                            st.plotly_chart(fig_shap, width="stretch", theme="streamlit")
 
                     with res_col2:
                         fig_gauge = go.Figure(go.Indicator(
@@ -423,7 +443,7 @@ def main_dashboard():
                             title={'text': "Churn Probability (%)", 'font': {'size': 24}},
                             gauge={'axis': {'range': [None, 100]}, 'bar': {'color': "black"},
                                    'steps': [{'range': [0, 40], 'color': "lightgreen"}, {'range': [40, 70], 'color': "gold"}, {'range': [70, 100], 'color': "salmon"}]}))
-                        st.plotly_chart(fig_gauge, width="stretch")
+                        st.plotly_chart(fig_gauge, width="stretch", theme="streamlit")
 
                     # --- AI AGENT KISMI ---
                     st.divider()

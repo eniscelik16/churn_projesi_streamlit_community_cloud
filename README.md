@@ -1,4 +1,4 @@
-\# 🏦 Bank Customer Churn Prediction Dashboard
+\# 🏦 Bank Churn Risk Dashboard
 
 
 
